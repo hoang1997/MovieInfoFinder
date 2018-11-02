@@ -19,7 +19,17 @@
      <rect>
       <x>10</x>
       <y>50</y>
-      <width>591</width>
+      <width>301</width>
+      <height>291</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>50</y>
+      <width>271</width>
       <height>291</height>
      </rect>
     </property>
