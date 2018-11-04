@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "randommoviegenerator.h"
 #include <QtGui>
 #include <QtCore>
 #include <QEventLoop>
@@ -38,14 +39,14 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::sendRequest()
+void MainWindow::sendRequest(QString s)
 {
     ui->listWidget->clear();
     QEventLoop eventLoop;
     QNetworkAccessManager manager;
 
     connect(&manager, SIGNAL(finished(QNetworkReply*)), &eventLoop, SLOT(quit()));
-    QNetworkRequest req(QUrl("http://www.omdbapi.com/?t="+setSearchedFilm(ui->lineEdit->text())+"&apikey=29d9fa76"));
+    QNetworkRequest req(QUrl("http://www.omdbapi.com/?"+s+"&apikey=29d9fa76"));
     QNetworkReply *reply = manager.get(req);
     eventLoop.exec();
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
@@ -55,7 +56,6 @@ void MainWindow::sendRequest()
         QJsonObject values = document.object();
         foreach( const QString &key, values.keys())
         {
-
             if(key != "Poster")
             {
                 QListWidgetItem *itm = new QListWidgetItem();
@@ -68,31 +68,31 @@ void MainWindow::sendRequest()
                 ui->listWidget->addItem(itm);
                 ui->listWidget->addItem(itm2);
                 ui->listWidget->addItem(space);
-
+                qDebug()<< key;
             }
 
         }
-        QEventLoop eLoop;
-        connect(&manager, SIGNAL(finished(QNetworkReply*)), &eLoop, SLOT(quit()));
-        QNetworkRequest request(QUrl(values["Poster"].toString()));
-        QNetworkReply *reply = manager.get(request);
-        eLoop.exec();
+        if(values["Poster"].toString() == "N/A")
+        {
+            QPixmap noImg(":/img/noPhotoFound.png");
+            ui->posterImg->setPixmap(noImg);
+        }
+        else
+        {
+            QEventLoop eLoop;
+            connect(&manager, SIGNAL(finished(QNetworkReply*)), &eLoop, SLOT(quit()));
+            QNetworkRequest request(QUrl(values["Poster"].toString()));
+            QNetworkReply *reply = manager.get(request);
+            eLoop.exec();
 
-        QByteArray arr = reply->readAll();
-
-        QPixmap img;
-        img.loadFromData(arr);
-
-        ui->posterImg->setPixmap(img);
-        ui->posterImg->setScaledContents( true );
-        ui->posterImg->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
-
+            QByteArray arr = reply->readAll();
+            QPixmap img;
+            img.loadFromData(arr);
+            ui->posterImg->setPixmap(img);
+        }
     }
-
-
     film.setObj(document.object());
     film.setInfo();
-
 }
 
 QString MainWindow::setSearchedFilm(QString text)
@@ -104,11 +104,23 @@ QString MainWindow::setSearchedFilm(QString text)
            text[i] = '+';
        }
     }
-    return text;
+
+    return "t="+ text;
 }
 
 
 void MainWindow::on_searchButton_clicked()
 {
-    sendRequest();
+    sendRequest(setSearchedFilm(ui->lineEdit->text()));
+}
+
+void MainWindow::on_randomMovieButton_clicked()
+{
+   randomMovieGenerator randomMovie;
+   randomMovie.setKeyValue();
+
+   sendRequest("i=" + randomMovie.getKeyValue());
+
+
+   qDebug() << randomMovie.getKeyValue();
 }

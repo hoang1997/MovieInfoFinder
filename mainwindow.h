@@ -27,7 +27,7 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void sendRequest();
+    void sendRequest(QString);
     void setMovie(const QJsonObject);
     QString setSearchedFilm(QString);
 
@@ -37,6 +37,8 @@ private slots:
     void on_searchButton_clicked();
 
 
+
+    void on_randomMovieButton_clicked();
 
 private:
     Ui::MainWindow *ui;

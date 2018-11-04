@@ -30,11 +30,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    movie.cpp
+    movie.cpp \
+    randommoviegenerator.cpp
 
 HEADERS += \
         mainwindow.h \
-    movie.h
+    movie.h \
+    randommoviegenerator.h
 
 FORMS += \
         mainwindow.ui
