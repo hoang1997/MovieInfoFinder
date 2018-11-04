@@ -23,8 +23,13 @@ MainWindow::MainWindow(QWidget *parent) :
     QPixmap img(":/img/logo.png");
     ui->logo->setPixmap(img);
     ui->logo->setScaledContents( true );
-
     ui->logo->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+
+    QPixmap loading(":/img/loading.jpg");
+    ui->posterImg->setPixmap(loading);
+    ui->posterImg->setScaledContents( true );
+    ui->posterImg->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
+    ui->listWidget->setWordWrap(true);
 
 }
 
@@ -58,10 +63,12 @@ void MainWindow::sendRequest()
                 QListWidgetItem *space = new QListWidgetItem();
                 QJsonValue val = values.value(key);
                 itm->setText(key);
+
                 itm2->setText(val.toString());
                 ui->listWidget->addItem(itm);
                 ui->listWidget->addItem(itm2);
                 ui->listWidget->addItem(space);
+
             }
 
         }

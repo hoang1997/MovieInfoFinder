@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/img">
         <file>logo.png</file>
+        <file>../../../../../../../Users/joehoang/Downloads/Logo2.png</file>
+        <file>Logo2.png</file>
+        <file>loading.jpg</file>
     </qresource>
 </RCC>

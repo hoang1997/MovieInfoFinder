@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>618</width>
-    <height>565</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -27,7 +27,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>180</y>
+      <y>160</y>
       <width>301</width>
       <height>331</height>
      </rect>
@@ -43,13 +43,13 @@
     <property name="geometry">
      <rect>
       <x>330</x>
-      <y>180</y>
+      <y>160</y>
       <width>271</width>
       <height>321</height>
      </rect>
     </property>
     <property name="text">
-     <string/>
+     <string>Please Search for a Movie</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -98,13 +98,26 @@
      <string>img</string>
     </property>
    </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>500</y>
+      <width>114</width>
+      <height>32</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Add to Wishlist</string>
+    </property>
+   </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
       <x>380</x>
       <y>0</y>
       <width>231</width>
-      <height>131</height>
+      <height>121</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout">
@@ -124,6 +137,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="pushButton">
+       <property name="styleSheet">
+        <string notr="true"/>
+       </property>
        <property name="text">
         <string>Go to Wishlist</string>
        </property>
