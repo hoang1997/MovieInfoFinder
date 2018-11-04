@@ -3,7 +3,17 @@
 
 #include <QMainWindow>
 #include "movie.h"
+
+#include <QEventLoop>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
+#include <QNetworkRequest>
+#include <QDebug>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QJsonObject>
 #include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 
 namespace Ui {
 class MainWindow;
@@ -20,7 +30,7 @@ public:
     void sendRequest();
     void setMovie(const QJsonObject);
     QString setSearchedFilm(QString);
-    void setImage(QString);
+
 
 
 private slots:
@@ -33,7 +43,7 @@ private:
     QString searchedFilm;
     movie film;
 
-    QGraphicsScene *scene;
+
 
 
 

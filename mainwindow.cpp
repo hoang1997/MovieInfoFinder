@@ -20,10 +20,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    scene = new QGraphicsScene(this);
+    QPixmap img(":/img/logo.png");
+    ui->logo->setPixmap(img);
+    ui->logo->setScaledContents( true );
 
-    ui->graphicsView->setScene(scene);
-    ui->graphicsView->fitInView(scene->sceneRect(),Qt::KeepAspectRatio);
+    ui->logo->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
 }
 
@@ -43,31 +44,48 @@ void MainWindow::sendRequest()
     QNetworkReply *reply = manager.get(req);
     eventLoop.exec();
     QJsonDocument document = QJsonDocument::fromJson(reply->readAll());
-    //QListWidgetItem *item = new QListWidgetItem();
 
     if(document.isObject())
     {
         QJsonObject values = document.object();
-        //item->setText(values["Title"].toString());
-        //ui->listWidget->addItem(item);
         foreach( const QString &key, values.keys())
         {
-            int i = 0;
-            QListWidgetItem *itm = new QListWidgetItem();
-            QListWidgetItem *itm2 = new QListWidgetItem();
-            QJsonValue val = values.value(key);
-            itm->setText(key);
-            itm2->setText(val.toString());
-            ui->listWidget->addItem(itm);
-            ui->listWidget->addItem(itm2);
-            i++;
+
+            if(key != "Poster")
+            {
+                QListWidgetItem *itm = new QListWidgetItem();
+                QListWidgetItem *itm2 = new QListWidgetItem();
+                QListWidgetItem *space = new QListWidgetItem();
+                QJsonValue val = values.value(key);
+                itm->setText(key);
+                itm2->setText(val.toString());
+                ui->listWidget->addItem(itm);
+                ui->listWidget->addItem(itm2);
+                ui->listWidget->addItem(space);
+            }
+
         }
+        QEventLoop eLoop;
+        connect(&manager, SIGNAL(finished(QNetworkReply*)), &eLoop, SLOT(quit()));
+        QNetworkRequest request(QUrl(values["Poster"].toString()));
+        QNetworkReply *reply = manager.get(request);
+        eLoop.exec();
+
+        QByteArray arr = reply->readAll();
+
+        QPixmap img;
+        img.loadFromData(arr);
+
+        ui->posterImg->setPixmap(img);
+        ui->posterImg->setScaledContents( true );
+        ui->posterImg->setSizePolicy( QSizePolicy::Ignored, QSizePolicy::Ignored );
 
     }
 
+
     film.setObj(document.object());
     film.setInfo();
-    setImage(film.poster);
+
 }
 
 QString MainWindow::setSearchedFilm(QString text)
@@ -81,21 +99,6 @@ QString MainWindow::setSearchedFilm(QString text)
     }
     return text;
 }
-
-void MainWindow::setImage(QString url)
-{
-
-
-        QImage image(url);
-        QImage img = image.scaled(800,600,Qt::KeepAspectRatio);
-
-
-        QGraphicsPixmapItem *itm = new QGraphicsPixmapItem(QPixmap::fromImage(img));
-
-        scene->addItem(itm);
-
-}
-
 
 
 void MainWindow::on_searchButton_clicked()
