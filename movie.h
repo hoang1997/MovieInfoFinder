@@ -5,14 +5,15 @@
 
 class movie
 {
-
 private:
-    QString actors,awards,boxOffice,country,dvd,director,genre,language,metascore,plot,poster,production,rated,
-    ratings,released,response,runtime,title,type,website,writer,year,imdbID,imdbRating,imdbVotes;
-
-    QJsonObject object;
-
+   QJsonObject obj;
 public:
+   QString actors,awards,boxOffice,country,dvd,director,genre,language,metascore,plot,poster,production,rated,
+   ratings,released,response,runtime,title,type,website,writer,year,imdbID,imdbRating,imdbVotes;
+
+   void setObj(const QJsonObject &obj);
+
+   void setInfo();
 
 
 };
