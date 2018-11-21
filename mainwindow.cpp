@@ -13,7 +13,6 @@
 #include <QJsonObject>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
-#include "createAccount.h"
 #include <QMessageBox>
 
 
@@ -74,12 +73,14 @@ void MainWindow::sendRequest(QString s)
     {
         QJsonArray r = values["results"].toArray();
 
+        QJsonObject movieObj;
         for(int i = 0; i < r.size(); i++)
         {
             QJsonValue val = r[i];
-            QJsonObject movieObj = val.toObject();
-            setMovieInfo(movieObj);
+            movieObj = val.toObject();
+
         }
+        setMovieInfo(movieObj);
     }
     film.setObj(values);
     film.setInfo();
