@@ -45,7 +45,7 @@
       <x>330</x>
       <y>160</y>
       <width>271</width>
-      <height>321</height>
+      <height>331</height>
      </rect>
     </property>
     <property name="text">
@@ -58,16 +58,19 @@
       <x>10</x>
       <y>120</y>
       <width>601</width>
-      <height>33</height>
+      <height>38</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout">
      <item>
       <widget class="QLineEdit" name="lineEdit">
        <property name="text">
-        <string>Movie Name</string>
+        <string>e.g. Guardians Of The Galaxy</string>
        </property>
       </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox"/>
      </item>
      <item>
       <widget class="QPushButton" name="searchButton">
@@ -90,7 +93,7 @@
      <rect>
       <x>10</x>
       <y>10</y>
-      <width>371</width>
+      <width>581</width>
       <height>101</height>
      </rect>
     </property>
@@ -98,40 +101,20 @@
      <string>img</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>500</y>
-      <width>114</width>
-      <height>32</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add to Wishlist</string>
-    </property>
-   </widget>
    <widget class="QWidget" name="">
     <property name="geometry">
      <rect>
-      <x>380</x>
-      <y>0</y>
-      <width>231</width>
-      <height>121</height>
+      <x>3</x>
+      <y>500</y>
+      <width>311</width>
+      <height>32</height>
      </rect>
     </property>
-    <layout class="QVBoxLayout" name="verticalLayout">
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
      <item>
-      <widget class="QPushButton" name="pushButton_2">
+      <widget class="QPushButton" name="pushButton_4">
        <property name="text">
-        <string>Sign In</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="pushButton_3">
-       <property name="text">
-        <string>Create Account</string>
+        <string>Add to Wishlist</string>
        </property>
       </widget>
      </item>
