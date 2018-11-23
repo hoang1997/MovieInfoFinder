@@ -8,6 +8,8 @@ QT       += core gui
 
 QT       += network
 
+QT       += sql
+
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -30,14 +32,20 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    movie.cpp
+    movie.cpp \
+    randommoviegenerator.cpp \
+    wishlist.cpp \
+    dbmanager.cpp
 
 HEADERS += \
         mainwindow.h \
-    movie.h
+    movie.h \
+    randommoviegenerator.h \
+    wishlist.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    wishlist.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

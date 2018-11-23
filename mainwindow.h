@@ -3,7 +3,7 @@
 
 #include <QMainWindow>
 #include "movie.h"
-
+#include "wishlist.h"
 #include <QEventLoop>
 #include <QNetworkAccessManager>
 #include <QNetworkReply>
@@ -14,6 +14,10 @@
 #include <QJsonObject>
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
+#include <QSqlDatabase>
+#include <QSqlDriver>
+#include <QSqlError>
+#include <QSqlQuery>
 
 namespace Ui {
 class MainWindow;
@@ -27,21 +31,36 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
-    void sendRequest();
+    void sendRequest(QString);
     void setMovie(const QJsonObject);
+    void setMovieInfo(QJsonObject);
+    void setMoviePoster(QString);
     QString setSearchedFilm(QString);
 
+    QString getRequestUrl(QString);
 
 
 private slots:
     void on_searchButton_clicked();
 
+    void on_randomMovieButton_clicked();
 
+
+
+
+    void on_pushButton_clicked();
+
+    void on_addToWIshlistButton_clicked();
 
 private:
     Ui::MainWindow *ui;
     QString searchedFilm;
     movie film;
+    wishList *wl;
+    QString id, mTitle;
+
+
+
 
 
 

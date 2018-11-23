@@ -3,5 +3,9 @@
         <file>logo.png</file>
         <file>Logo2.png</file>
         <file>loading.jpg</file>
+        <file>noPhotoFound.png</file>
     </qresource>
+    <qresource prefix="/db">
+		<file>userDatabase.db</file>
+	</qresource>
 </RCC>
