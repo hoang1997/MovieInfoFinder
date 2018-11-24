@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 #include "movie.h"
-#include "login.h"
 #include "wishlist.h"
 #include <QEventLoop>
 #include <QNetworkAccessManager>
@@ -51,12 +50,17 @@ private slots:
 
     void on_pushButton_clicked();
 
+
+    void on_addToWIshlistButton_clicked();
+
+
 private:
     Ui::MainWindow *ui;
     QString searchedFilm;
     movie film;
     wishList *wl;
 
+    QString id, mTitle;
 
 
 

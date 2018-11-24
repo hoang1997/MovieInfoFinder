@@ -73,14 +73,23 @@ void MainWindow::sendRequest(QString s)
     {
         QJsonArray r = values["results"].toArray();
 
+
         QJsonObject movieObj;
         for(int i = 0; i < r.size(); i++)
         {
             QJsonValue val = r[i];
             movieObj = val.toObject();
 
+
+        for(int i = 0; i < r.size(); i++)
+        {
+            QJsonValue val = r[i];
+            QJsonObject movieObj = val.toObject();
+            setMovieInfo(movieObj);
         }
+
         setMovieInfo(movieObj);
+
     }
     film.setObj(values);
     film.setInfo();
@@ -115,6 +124,16 @@ void MainWindow::setMovieInfo(QJsonObject movieObj)
         {
             setMoviePoster(movieObj.value(key).toString());
         }
+
+        if(key == "imdbID")
+        {
+            id = movieObj.value(key).toString();
+        }
+        if(key == "Title")
+        {
+            mTitle = movieObj.value(key).toString();
+        }
+
     }
 }
 
@@ -186,4 +205,52 @@ void MainWindow::on_pushButton_clicked()
     wl = new wishList();
     wl->setModal(true);
     wl->show();
+
+}
+
+//code for adding a film to a wishlist
+void MainWindow::on_addToWIshlistButton_clicked()
+{
+   //variables for the film id and users username
+   QString userName = "toby123";
+
+   //Initialises and creates SQLITE3 database named Database
+   const QString DRIVER("QSQLITE");
+   QSqlDatabase db = QSqlDatabase::addDatabase(DRIVER);
+   db.setDatabaseName("Database.db");
+
+   //confirms database connection is established
+   if (!db.open())
+      {
+         qDebug() << "Error: connection with database fail";
+      }
+      else
+      {
+         qDebug() << "Database: connection ok";
+      }
+
+   //creates a query using the open database
+   QSqlQuery query(db);
+   //creates wishlist table
+   query.exec("CREATE TABLE Wishlist(FilmID string, Title string,Username string)");
+   //prepares INSERT statements
+   query.prepare("INSERT INTO Wishlist(FilmID, Title, Username) VALUES (:id, :title, :user)");
+   //Binds the appropriate values to the statement to avoid SQL Injection
+   query.bindValue(":id",id);
+   query.bindValue(":title",mTitle);
+   query.bindValue(":user",userName);
+
+   //Confirms the query executes
+   if(query.exec())
+   {
+       qDebug() << "Successfully added to wishlist";
+   }
+   else
+   {
+       qDebug() << query.lastError();
+   }
+     //---------------------------------------------//
+    //Damn this code is messy----------------------//
+   //---------------------------------------------//
+
 }

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>618</width>
-    <height>584</height>
+    <width>689</width>
+    <height>662</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,6 +23,109 @@
    <property name="styleSheet">
     <string notr="true"/>
    </property>
+
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLabel" name="logo">
+        <property name="minimumSize">
+         <size>
+          <width>0</width>
+          <height>150</height>
+         </size>
+        </property>
+        <property name="text">
+         <string>img                                                     </string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLineEdit" name="lineEdit">
+          <property name="text">
+           <string>e.g. Guardians Of The Galaxy</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox"/>
+        </item>
+        <item>
+         <widget class="QPushButton" name="searchButton">
+          <property name="text">
+           <string>Search</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="randomMovieButton">
+          <property name="text">
+           <string>Find Random Movie</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_3">
+        <item>
+         <widget class="QListWidget" name="listWidget">
+          <property name="maximumSize">
+           <size>
+            <width>500</width>
+            <height>400</height>
+           </size>
+          </property>
+          <property name="autoFillBackground">
+           <bool>false</bool>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QLabel" name="posterImg">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>400</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>Please Search for a Movie                                                 </string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout_2">
+        <item>
+         <widget class="QPushButton" name="addToWIshlistButton">
+          <property name="text">
+           <string>Add to Wishlist</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="pushButton">
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <property name="text">
+           <string>Go to Wishlist</string>
+          </property>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </item>
+   </layout>
+
    <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
@@ -130,6 +233,7 @@
      </item>
     </layout>
    </widget>
+
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
