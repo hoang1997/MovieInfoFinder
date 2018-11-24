@@ -50,13 +50,16 @@ private slots:
 
     void on_pushButton_clicked();
 
+
     void on_addToWIshlistButton_clicked();
+
 
 private:
     Ui::MainWindow *ui;
     QString searchedFilm;
     movie film;
     wishList *wl;
+
     QString id, mTitle;
 
 
