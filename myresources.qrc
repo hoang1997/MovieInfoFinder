@@ -6,12 +6,6 @@
         <file>noPhotoFound.png</file>
     </qresource>
     <qresource prefix="/db">
-
 		<file>userDatabase.db</file>
 	</qresource>
-
-        <file>userDatabase.db</file>
-    </qresource>
-    <qresource prefix="/new/prefix1"/>
-
 </RCC>

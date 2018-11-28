@@ -73,23 +73,12 @@ void MainWindow::sendRequest(QString s)
     {
         QJsonArray r = values["results"].toArray();
 
-
-        QJsonObject movieObj;
-        for(int i = 0; i < r.size(); i++)
-        {
-            QJsonValue val = r[i];
-            movieObj = val.toObject();
-
-
         for(int i = 0; i < r.size(); i++)
         {
             QJsonValue val = r[i];
             QJsonObject movieObj = val.toObject();
             setMovieInfo(movieObj);
         }
-
-        setMovieInfo(movieObj);
-
     }
     film.setObj(values);
     film.setInfo();
@@ -124,7 +113,6 @@ void MainWindow::setMovieInfo(QJsonObject movieObj)
         {
             setMoviePoster(movieObj.value(key).toString());
         }
-
         if(key == "imdbID")
         {
             id = movieObj.value(key).toString();
@@ -133,7 +121,6 @@ void MainWindow::setMovieInfo(QJsonObject movieObj)
         {
             mTitle = movieObj.value(key).toString();
         }
-
     }
 }
 
@@ -205,7 +192,6 @@ void MainWindow::on_pushButton_clicked()
     wl = new wishList();
     wl->setModal(true);
     wl->show();
-
 }
 
 //code for adding a film to a wishlist
@@ -252,5 +238,4 @@ void MainWindow::on_addToWIshlistButton_clicked()
      //---------------------------------------------//
     //Damn this code is messy----------------------//
    //---------------------------------------------//
-
 }
