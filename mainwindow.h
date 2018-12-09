@@ -45,9 +45,6 @@ private slots:
 
     void on_randomMovieButton_clicked();
 
-
-
-
     void on_pushButton_clicked();
 
     void on_addToWIshlistButton_clicked();
@@ -55,9 +52,12 @@ private slots:
 private:
     Ui::MainWindow *ui;
     QString searchedFilm;
+    QString posterPath;
     movie film;
     wishList *wl;
     QString id, mTitle;
+    QSqlDatabase db;
+
 
 
 

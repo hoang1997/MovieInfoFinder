@@ -35,7 +35,24 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QStringList chosenDB = (QStringList()<<"OMDB"<<"TMDB");
     ui->comboBox->addItems(chosenDB);
+    //Initialises and creates SQLITE3 database named Database
+    const QString DRIVER("QSQLITE");
+    db = QSqlDatabase::addDatabase(DRIVER);
+    db.setDatabaseName("Database.db");
 
+    //confirms database connection is established
+    if (!db.open())
+       {
+          qDebug() << "Error: connection with database fail";
+       }
+       else
+       {
+          qDebug() << "Database: connection ok";
+          QSqlQuery query(db);
+          //creates wishlist table
+          query.exec("DELETE FROM Wishlist;");
+
+       }
 
 }
 
@@ -89,7 +106,7 @@ void MainWindow::setMovieInfo(QJsonObject movieObj)
 
     foreach(const QString &key, movieObj.keys())
     {
-        if(key != "Poster" & key != "poster_path")
+        if(key != "Poster" && key != "poster_path")
         {
             //creating items for the list
             QListWidgetItem *itm = new QListWidgetItem();
@@ -108,10 +125,12 @@ void MainWindow::setMovieInfo(QJsonObject movieObj)
         if(key == "poster_path")
         {
             setMoviePoster( "https://image.tmdb.org/t/p/w500"+movieObj.value(key).toString());
+            posterPath = "https://image.tmdb.org/t/p/w500"+movieObj.value(key).toString();
         }
         if(key == "Poster")
         {
             setMoviePoster(movieObj.value(key).toString());
+            posterPath = movieObj.value(key).toString();
         }
         if(key == "imdbID")
         {
@@ -163,14 +182,23 @@ QString MainWindow::getRequestUrl(QString searchedFilm)
 {
     if(ui->comboBox->currentText() == "OMDB")
     {
-        return("http://www.omdbapi.com/?"+searchedFilm+"&apikey=29d9fa76");
+        if(ui->lineEdit_2->text() != "OMDB API Key")
+        {
+            return("http://www.omdbapi.com/?"+searchedFilm+ui->lineEdit_2->text());
+        }
+        else{return("http://www.omdbapi.com/?"+searchedFilm+"&apikey=29d9fa76");}
     }
     else if(ui->comboBox->currentText() == "TMDB")
     {
+        if(ui->lineEdit_3->text()!="TMDB API Key")
+        {
+            return("https://api.themoviedb.org/3/search/movie?api_key="+ui->lineEdit_3->text()+"&query="+searchedFilm);
+        }
         return("https://api.themoviedb.org/3/search/movie?api_key=21ffe74ffd34e579e80bb4096979450d&query="+searchedFilm);
     }
-    else {return "0";}
-
+    else {
+        return(0);
+    }
 }
 
 void MainWindow::on_searchButton_clicked()
@@ -197,34 +225,20 @@ void MainWindow::on_pushButton_clicked()
 //code for adding a film to a wishlist
 void MainWindow::on_addToWIshlistButton_clicked()
 {
-   //variables for the film id and users username
-   QString userName = "toby123";
-
-   //Initialises and creates SQLITE3 database named Database
-   const QString DRIVER("QSQLITE");
-   QSqlDatabase db = QSqlDatabase::addDatabase(DRIVER);
-   db.setDatabaseName("Database.db");
-
-   //confirms database connection is established
-   if (!db.open())
-      {
-         qDebug() << "Error: connection with database fail";
-      }
-      else
-      {
-         qDebug() << "Database: connection ok";
-      }
-
    //creates a query using the open database
+
+   const QString username = "test";
    QSqlQuery query(db);
    //creates wishlist table
-   query.exec("CREATE TABLE Wishlist(FilmID string, Title string,Username string)");
+   query.exec("CREATE TABLE Wishlist(FilmID string, Title string, Username string, Comments string)");
    //prepares INSERT statements
-   query.prepare("INSERT INTO Wishlist(FilmID, Title, Username) VALUES (:id, :title, :user)");
+   query.prepare("INSERT INTO Wishlist(FilmID, Title, Username, Comments) VALUES (:id, :title, :user, :comments)");
    //Binds the appropriate values to the statement to avoid SQL Injection
-   query.bindValue(":id",id);
+   query.bindValue(":id", id);
    query.bindValue(":title",mTitle);
-   query.bindValue(":user",userName);
+   query.bindValue(":user", posterPath);
+   query.bindValue(":comments", "No Comments");
+
 
    //Confirms the query executes
    if(query.exec())
@@ -235,7 +249,4 @@ void MainWindow::on_addToWIshlistButton_clicked()
    {
        qDebug() << query.lastError();
    }
-     //---------------------------------------------//
-    //Damn this code is messy----------------------//
-   //---------------------------------------------//
 }
