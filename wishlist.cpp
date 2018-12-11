@@ -95,7 +95,9 @@ void wishList::on_pushButton_2_clicked()
     //Confirms the query executes
     if(query.exec())
     {
-        qDebug() << "Successfully added to wishlist";
+        QMessageBox::StandardButton error;
+
+        error = QMessageBox::information(this,"ERROR:", "Deleted '"  + ui->comboBox->currentText()  + "' Movie");
 
     }
     else

@@ -53,6 +53,9 @@ MainWindow::MainWindow(QWidget *parent) :
           query.exec("DELETE FROM Wishlist;");
 
        }
+    QSqlQuery query(db);
+    //creates wishlist table
+    query.exec("CREATE TABLE Wishlist(FilmID string, Title string, Username string, Comments string)");
 
 }
 
@@ -229,8 +232,7 @@ void MainWindow::on_addToWIshlistButton_clicked()
 
    const QString username = "test";
    QSqlQuery query(db);
-   //creates wishlist table
-   query.exec("CREATE TABLE Wishlist(FilmID string, Title string, Username string, Comments string)");
+
    //prepares INSERT statements
    query.prepare("INSERT INTO Wishlist(FilmID, Title, Username, Comments) VALUES (:id, :title, :user, :comments)");
    //Binds the appropriate values to the statement to avoid SQL Injection
@@ -244,6 +246,9 @@ void MainWindow::on_addToWIshlistButton_clicked()
    if(query.exec())
    {
        qDebug() << "Successfully added to wishlist";
+       QMessageBox::StandardButton error;
+
+       error = QMessageBox::information(this,"ERROR:", "Added To Wishlist!");
    }
    else
    {
