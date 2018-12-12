@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QListWidget>
 #include <QNetworkAccessManager>
+#include <QMessageBox>
 
 namespace Ui {
 class wishList;
